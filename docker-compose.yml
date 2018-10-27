@@ -28,62 +28,62 @@ services:
       - /mnt/storage/configs/deluge:/config # config files
 
 # fixed up to hear
-  jackett:
-    container_name: jackett
-    image: linuxserver/jackett:latest
-    restart: unless-stopped
-    network_mode: bridge
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Los_Angeles
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /media/${USER}/data1/downloads/ongoing/torrent-blackhole:/downloads # place where to put .torrent files
-      - /mnt/storage/configs/jackett:/config # config files
+#  jackett:
+#    container_name: jackett
+#    image: linuxserver/jackett:latest
+#    restart: unless-stopped
+#    network_mode: bridge
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=America/Los_Angeles
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#      - /media/${USER}/data1/downloads/ongoing/torrent-blackhole:/downloads # place where to put .torrent files
+#      - /mnt/storage/configs/jackett:/config # config files
 
-  nzbget:
-    container_name: nzbget
-    image: linuxserver/nzbget:latest
-    restart: unless-stopped
-    network_mode: host
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Los_Angeles
-    volumes:
-      - /media/${USER}/data1/downloads/ongoing:/downloads # download folder
-      - ${HOME}/.config/nzbget:/config # config files
+#  nzbget:
+#    container_name: nzbget
+#    image: linuxserver/nzbget:latest
+#    restart: unless-stopped
+#    network_mode: host
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=America/Los_Angeles
+#    volumes:
+#      - /media/${USER}/data1/downloads/ongoing:/downloads # download folder
+#      - ${HOME}/.config/nzbget:/config # config files
 
-  sonarr:
-    container_name: sonarr
-    image: linuxserver/sonarr:latest
-    restart: unless-stopped
-    network_mode: host
-    environment:
-      - PUID=1000 # default user id, for downloaded files access rights
-      - PGID=1000 # default group id, for downloaded files access rights
-      - TZ=America/Los_Angeles
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ${HOME}/.config/sonarr:/config # config files
-      - /media/${USER}/data1/downloads/series:/tv # tv shows folder
-      - /media/${USER}/data1/downloads/ongoing:/downloads # download folder
+#  sonarr:
+#    container_name: sonarr
+#    image: linuxserver/sonarr:latest
+#    restart: unless-stopped
+#    network_mode: host
+#    environment:
+#      - PUID=1000 # default user id, for downloaded files access rights
+#      - PGID=1000 # default group id, for downloaded files access rights
+#      - TZ=America/Los_Angeles
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#      - ${HOME}/.config/sonarr:/config # config files
+#      - /media/${USER}/data1/downloads/series:/tv # tv shows folder
+#      - /media/${USER}/data1/downloads/ongoing:/downloads # download folder
 
-  radarr:
-    container_name: radarr
-    image: linuxserver/radarr:latest
-    restart: unless-stopped
-    network_mode: host
-    environment:
-      - PUID=1000 # default user id, for downloaded files access rights
-      - PGID=1000 # default group id, for downloaded files access rights
-      - TZ=America/Los_Angeles
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ${HOME}/.config/radarr:/config # config files
-      - /media/${USER}/data1/downloads/movies:/movies # movies folder
-      - /media/${USER}/data1/downloads/ongoing:/downloads # download folder
+#  radarr:
+#    container_name: radarr
+#    image: linuxserver/radarr:latest
+#    restart: unless-stopped
+#    network_mode: host
+#    environment:
+#      - PUID=1000 # default user id, for downloaded files access rights
+#      - PGID=1000 # default group id, for downloaded files access rights
+#      - TZ=America/Los_Angeles
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#      - ${HOME}/.config/radarr:/config # config files
+#      - /media/${USER}/data1/downloads/movies:/movies # movies folder
+#      - /media/${USER}/data1/downloads/ongoing:/downloads # download folder
 
 #  plex-server:
 #    container_name: plex-server
