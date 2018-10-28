@@ -27,63 +27,95 @@ services:
       - /home/ubuntu/downloads:/downloads # download folder
       - /mnt/storage/configs/deluge:/config # config files
 
-# fixed up to hear
-#  jackett:
-#    container_name: jackett
-#    image: linuxserver/jackett:latest
-#    restart: unless-stopped
-#    network_mode: bridge
-#    environment:
-#      - PUID=1000
-#      - PGID=1000
-#      - TZ=America/Los_Angeles
-#    volumes:
-#      - /etc/localtime:/etc/localtime:ro
-#      - /media/${USER}/data1/downloads/ongoing/torrent-blackhole:/downloads # place where to put .torrent files
-#      - /mnt/storage/configs/jackett:/config # config files
+  jackett:
+    container_name: jackett
+    image: linuxserver/jackett:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/ubuntu/downloads/blackhole:/downloads
+      - /mnt/storage/configs/jackett:/config
+    ports:
+      - 9117:9117
 
-#  nzbget:
-#    container_name: nzbget
-#    image: linuxserver/nzbget:latest
-#    restart: unless-stopped
-#    network_mode: host
-#    environment:
-#      - PUID=1000
-#      - PGID=1000
-#      - TZ=America/Los_Angeles
-#    volumes:
-#      - /media/${USER}/data1/downloads/ongoing:/downloads # download folder
-#      - ${HOME}/.config/nzbget:/config # config files
+  nzbget:
+    container_name: nzbget
+    image: linuxserver/nzbget:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /mnt/storage/configs/nzbget:/config
+      - /home/ubuntu/downloads:/downloads
+      - /mnt/storage:/storage
+    ports:
+      - 6789:6789
 
-#  sonarr:
-#    container_name: sonarr
-#    image: linuxserver/sonarr:latest
-#    restart: unless-stopped
-#    network_mode: host
-#    environment:
-#      - PUID=1000 # default user id, for downloaded files access rights
-#      - PGID=1000 # default group id, for downloaded files access rights
-#      - TZ=America/Los_Angeles
-#    volumes:
-#      - /etc/localtime:/etc/localtime:ro
-#      - ${HOME}/.config/sonarr:/config # config files
-#      - /media/${USER}/data1/downloads/series:/tv # tv shows folder
-#      - /media/${USER}/data1/downloads/ongoing:/downloads # download folder
+  sonarr:
+    container_name: sonarr
+    image: linuxserver/sonarr:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/storage:/storage
+      - /mnt/storage/configs/sonarr:/config
+    ports:
+      - 8989:8989
 
-#  radarr:
-#    container_name: radarr
-#    image: linuxserver/radarr:latest
-#    restart: unless-stopped
-#    network_mode: host
-#    environment:
-#      - PUID=1000 # default user id, for downloaded files access rights
-#      - PGID=1000 # default group id, for downloaded files access rights
-#      - TZ=America/Los_Angeles
-#    volumes:
-#      - /etc/localtime:/etc/localtime:ro
-#      - ${HOME}/.config/radarr:/config # config files
-#      - /media/${USER}/data1/downloads/movies:/movies # movies folder
-#      - /media/${USER}/data1/downloads/ongoing:/downloads # download folder
+  radarr:
+    container_name: radarr
+    image: linuxserver/radarr:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/storage:/storage
+      - /mnt/storage/configs/radarr:/config
+    ports:
+      - 7878:7878
+
+  emby:
+    container_name: emby
+    image: emby/embyserver:latest
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - UID=1000
+      - GID=1000
+      - GIDLIST=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /mnt/storage/configs/emby:/config
+      - /mnt/storage/media:/mnt/share1
+
+  bazarr:
+    container_name: bazarr
+    image: linuxserver/bazarr:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/storage/media/movies:/movies
+      - /mnt/storage/media/tv:/tv
+      - /mnt/storage/configs/bazarr:/config
+    ports:
+      - 6767:6767
 
 #  plex-server:
 #    container_name: plex-server
