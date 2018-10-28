@@ -1,6 +1,13 @@
+Forked from sebgl/htpc-download-box, updates:
+* Swap Plex for Emby
+* Temporarily disable OpenVPN and Deluge until VPN is figured
+* Run all containers within a separate network bridge; except for Deluge that runs on host
+
+This setup has been tested on Ubuntu 18.04; and stack is implemented through Portainer (portainer only supports docker-compose version 2 and earlier at this time). 
+
 # HTPC Download Box
 
-Sonarr / Radarr / Jackett / NZBGet / Deluge / OpenVPN / Plex
+Sonarr / Radarr / Jackett / NZBGet / Deluge / OpenVPN / Emby
 
 TV shows and movies download, sort, with the desired quality and subtitles, behind a VPN (optional), ready to watch, in a beautiful media player.
 All automated.
